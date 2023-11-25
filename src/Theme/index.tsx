@@ -50,7 +50,7 @@ const useDarkMode = (): UseDarkModeReturnType => {
     updateTheme(value);
   };
 
-  const updateTheme = async (value: boolean) => {
+  const updateTheme = async (value: boolean): Promise<void> => {
     try {
       const data = await supabase
         .from("Theme-Provider")
