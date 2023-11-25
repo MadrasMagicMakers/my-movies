@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import supabase from "@/config/supabaseClient";
 
-type UseDarkModeReturnType = [boolean, () => void, Record<string, string>];
+type ThemeColors = Record<string, string>;
 
 const colorPalette = {
   light: {
@@ -16,9 +16,11 @@ const colorPalette = {
   },
 };
 
+type UseDarkModeReturnType = [boolean, () => void, ThemeColors];
+
 const useDarkMode = (): UseDarkModeReturnType => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  const [themeColors, setThemeColors] = useState<Record<string, string>>(
+  const [themeColors, setThemeColors] = useState<ThemeColors>(
     colorPalette.light
   );
 
@@ -31,7 +33,6 @@ const useDarkMode = (): UseDarkModeReturnType => {
         .single();
       if (data) {
         const { themes } = data;
-        // const mode = window.matchMedia("(prefers-color-scheme: dark)").matches;
         setIsDarkMode(themes);
         setThemeColors(themes ? colorPalette.dark : colorPalette.light);
       }
@@ -44,18 +45,17 @@ const useDarkMode = (): UseDarkModeReturnType => {
     getTheme();
   }, [getTheme]);
 
-  const toggleDarkMode = (value: boolean) => {
+  const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => !prevMode);
     setThemeColors(isDarkMode ? colorPalette.light : colorPalette.dark);
-    updateTheme(value);
+    updateTheme(!isDarkMode);
   };
 
   const updateTheme = async (value: boolean): Promise<void> => {
     try {
-      const data = await supabase
+      await supabase
         .from("Theme-Provider")
-        .upsert([{ id: 1, themes: !value }])
-        .limit(1)
+        .upsert([{ id: 1, themes: value }])
         .single();
       getTheme();
     } catch (error) {
