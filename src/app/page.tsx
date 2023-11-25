@@ -1,16 +1,22 @@
-
-import { useTheme } from "@/Theme";
+"use client";
 import { NextPage } from "next";
-import * as React from 'react';
+import * as React from "react";
+import { useEffect } from "react";
+import useDarkMode from "./theme";
 
 const Home: NextPage = () => {
-  const greeting: string = "Welcome to Movies now habibi";
-  const { theme, mode, toggleMode } = useTheme();
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", isDarkMode);
+  }, [isDarkMode]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>{greeting}</h1>
-    </main>
+    <div className={`theme-container ${isDarkMode ? "dark-mode" : ""}`}>
+      <h1>My App</h1>
+      <p>Content goes here...</p>
+      <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
+    </div>
   );
 };
 
