@@ -1,8 +1,14 @@
+'use client';
 import React from "react";
+import { useRouter } from 'next/navigation';
 import LazyImage from "@/components/LazyImage";
 import Button from "@/components/Button";
 
 const LandingLayout = () => {
+  const router = useRouter()
+
+  const handleWatch = () => router.push('/movies');
+
   return (
     <div className="w-full h-screen flex items-end justify-center">
       <div className="absolute inset-0 z-0 animate-fade">
@@ -23,7 +29,7 @@ const LandingLayout = () => {
           seamless and enriching experience. Start your cinematic journey today
           with Movies Now!
         </p>
-        <Button title="Start Watching Now" />
+        <Button title="Start Watching Now" onClick={handleWatch} />
       </div>
     </div>
   );
