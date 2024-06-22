@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useMemo, useId } from "react";
 const PieChartRating = ({ rating }: { rating: number }) => {
   const circleRef = useRef<SVGCircleElement>(null);
   const [offset, setOffset] = useState<number>(0);
-  const circumference = 2 * Math.PI * 35;
+  const circumference = 2 * Math.PI * 30;
   const uniqueId = useId();
 
   const calculateOffset = (rating: number) => {
@@ -52,9 +52,9 @@ const PieChartRating = ({ rating }: { rating: number }) => {
           <circle
             cx="145"
             cy="145"
-            r="35"
+            r="30"
             stroke="currentColor"
-            strokeWidth="10"
+            strokeWidth="6"
             fill="transparent"
             className="text-gray-700"
           />
@@ -62,9 +62,9 @@ const PieChartRating = ({ rating }: { rating: number }) => {
             ref={circleRef}
             cx="145"
             cy="145"
-            r="35"
+            r="30"
             stroke={`url(#${gradientId})`}
-            strokeWidth="10"
+            strokeWidth="6"
             fill="transparent"
             strokeDasharray={circumference}
             strokeDashoffset={offset}
