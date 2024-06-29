@@ -119,6 +119,7 @@ const config: Config = {
         slide: "slide 5s ease-in-out infinite",
         fade: "fade 5s ease-in-out infinite",
         textGenerate: "textGenerate 1s forwards",
+        fadeIn: "fadeIn 1s ease-in-out",
       },
       aria: {
         checked: 'checked="true"',
@@ -654,6 +655,10 @@ const config: Config = {
         textGenerate: {
           "0%": { transform: "translateX(-50%)", opacity: "0" },
           "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
       },
       letterSpacing: {

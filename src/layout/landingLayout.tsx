@@ -1,13 +1,13 @@
-'use client';
+"use client";
 import React from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import LazyImage from "@/components/LazyImage";
 import Button from "@/components/Button";
 
 const LandingLayout = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const handleWatch = () => router.push('/movies');
+  const handleWatch = () => router.push("/movies");
 
   return (
     <div className="w-full h-screen flex items-end justify-center">
@@ -18,7 +18,9 @@ const LandingLayout = () => {
         />
       </div>
       <div className="absolute text-center bg-black bg-opacity-50 p-4">
-        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 animate-textGenerate">Experience Cinema Uninterrupted with Movies Now</h3>
+        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 animate-textGenerate">
+          Experience Cinema Uninterrupted with Movies Now
+        </h3>
         <p className="text-base md:text-lg lg:text-xl mb-8 animate-textGenerate">
           Immerse yourself in the world of cinema with Movies Now, your ultimate
           destination for movie enthusiasts. Discover a vast library of films
@@ -29,7 +31,11 @@ const LandingLayout = () => {
           seamless and enriching experience. Start your cinematic journey today
           with Movies Now!
         </p>
-        <Button title="Start Watching Now" onClick={handleWatch} />
+        <Button
+          title="Start Watching Now"
+          type="primary"
+          onClick={handleWatch}
+        />
       </div>
     </div>
   );
