@@ -9,6 +9,11 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   const handleSearch = useCallback(() => {
+    if (searchInputRef.current?.value) {
+      searchInputRef.current.value = "";
+      searchInputRef.current?.focus();
+      return;
+    }
     setShowSearch(!showSearch);
     if (!showSearch) {
       setTimeout(() => {
@@ -43,6 +48,7 @@ const Header = () => {
               type="text"
               className="absolute bg-black text-white rounded-full px-4 py-2 pr-[35px] text-sm left-0 w-full h-full"
               placeholder="Search..."
+              value={searchInputRef.current?.value}
               ref={searchInputRef}
               aria-label="Search"
             />
