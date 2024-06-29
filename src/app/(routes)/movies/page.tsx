@@ -8,25 +8,17 @@ import TopRatedMovies from "@/components/MovieTypes/TopRatedMovies";
 
 const Movies = () => {
   return (
-    <div>
-      <Header />
-      <div className="relative h-screen">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-          ></video>
+    <div
+      className="min-h-screen w-full bg-cover bg-no-repeat bg-center p-8"
+      style={{
+        backgroundImage:
+          "url('https://images5.alphacoders.com/135/thumbbig-1355115.webp')",
+      }}
+    >
+      <div className="container">
+        <div className="bg-glass rounded p-4">
+          <Header />
         </div>
-      </div>
-      <div>
-        <PopularMovies />
-        <TrendingMovies />
-        <UpcomingMovies />
-        <TopRatedMovies />
       </div>
     </div>
   );

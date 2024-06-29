@@ -1,59 +1,71 @@
-import React, { useState, useEffect } from "react";
-import SearchInput from "../SearchInput";
+import React, { useState, useRef, useCallback } from "react";
+import SearchIcon from "../../../public/images/svg/SearchIcon";
+import CloseIcon from "../../../public/images/svg/CloseIcon";
 import LazyImage from "../LazyImage";
+import { navLinks } from "@/constants";
 
 const Header = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const [showSearch, setShowSearch] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      setIsVisible(currentScrollPos < 10 || prevScrollPos > currentScrollPos);
-      setPrevScrollPos(currentScrollPos);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [prevScrollPos]);
+  const handleSearch = useCallback(() => {
+    setShowSearch(!showSearch);
+    if (!showSearch) {
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 300);
+    }
+  }, [showSearch]);
 
   return (
-    <header
-      className={`bg-purple-400 bg-opacity-20 backdrop-filter backdrop-blur-md border border-gray-100 rounded-full shadow-lg fixed top-5 left-0 right-0 mx-auto w-4/5 z-10 transition-all duration-300 ${
-        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
-    >
-      <div className="container mx-auto px-4 py-2">
-        <nav className="flex justify-between items-center">
-          <LazyImage
-            src="/images/logo.png"
-            alt="Logo"
-            width={150}
-            height={100}
-          />
-          <div className="flex items-center">
-            <SearchInput />
-            <div className="flex items-center">
+    <header>
+      <nav className="relative flex justify-between items-center">
+        <LazyImage src="/images/logo.png" alt="Logo" width={150} height={100} />
+        <div className="absolute left-1/2 transform -translate-x-1/2 bg-black rounded-full flex items-center w-auto">
+          <div
+            className={`flex items-center transition-all duration-300 ${
+              showSearch ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            {navLinks.map(({ name, href }, index) => (
               <a
-                href="/"
-                className="text-gray-600 text-sm mx-4 hover:text-gray-400"
+                key={index}
+                href={href}
+                className="text-white-600 text-sm mx-4 hover:text-white-400"
+                aria-label={name}
               >
-                Browse Movies
+                {name}
               </a>
-              <a
-                href="/"
-                className="text-gray-600 text-sm mr-4 hover:text-gray-400"
-              >
-                Login
-              </a>
-            </div>
+            ))}
           </div>
-        </nav>
-      </div>
+          {showSearch && (
+            <input
+              type="text"
+              className="absolute bg-black text-white rounded-full px-4 py-2 pr-[35px] text-sm left-0 w-full h-full"
+              placeholder="Search..."
+              ref={searchInputRef}
+              aria-label="Search"
+            />
+          )}
+          <button
+            onClick={handleSearch}
+            className="cursor-pointer relative focus:outline-none"
+            aria-label={showSearch ? "Close Search" : "Open Search"}
+          >
+            {showSearch ? <CloseIcon /> : <SearchIcon />}
+          </button>
+        </div>
+        <div className="h-[40px] w-[40px] rounded-full bg-glass flex items-center justify-center">
+          <LazyImage
+            src="https://jodilogik.com/wp-content/uploads/2016/05/people-1.png"
+            alt="profile"
+            width={30}
+            height={30}
+          />
+        </div>
+      </nav>
     </header>
   );
 };
 
-export default Header;
+export default React.memo(Header);
