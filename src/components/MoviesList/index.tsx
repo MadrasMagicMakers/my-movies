@@ -28,8 +28,8 @@ const MovieList: React.FC<MovieListProps> = ({
   const handleRedirection = (id: number) => router.push(`/movies/${id}`);
 
   return (
-    <div className="container mx-auto py-12 px-4">
-      <h2 className="text-3xl font-semibold mb-8">{title}</h2>
+    <div className="container mx-auto p-4">
+      <h2 className="text-xl font-semibold mb-4">{title}</h2>
       <div className="relative">
         <div className="overflow-x-auto">
           <div className="inline-flex space-x-8">
