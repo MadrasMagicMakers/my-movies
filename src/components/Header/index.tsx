@@ -63,6 +63,7 @@ const Header = () => {
           </button>
         </div> */}
 
+        {/* new input ui */}
         <div className="relative">
           <div
             className={`flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md cursor-pointer transition-all duration-300 ${
