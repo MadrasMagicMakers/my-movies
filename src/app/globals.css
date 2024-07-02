@@ -16,7 +16,7 @@
   }
 }
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,8 +24,32 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+:root {
+  --body-color-light: white;
+  --body-color-dark: black;
 }
 
+body {
+  background-color: var(--body-color-light);
+  color: black; /* Default text color */
+}
+
+body.dark-mode {
+  background-color: var(--body-color-dark);
+  color: white; /* Text color in dark mode */
+}
+
+.theme-container {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+  --body-colour: black;
+  background-color: var(--body-colour);
+  color: white;
+}
 .bg-glass {
   background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);

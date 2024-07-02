@@ -1,64 +1,69 @@
-// components/ThemeProvider.tsx
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+"use client";
 
-interface Theme {
-  primaryColor: string;
-  secondaryColor: string;
-}
+import { useState, useEffect, useCallback } from "react";
+import supabase from "@/config/supabaseClient";
 
-interface ThemeProviderProps {
-  children: ReactNode;
-}
+type ThemeColors = Record<string, string>;
 
-export type ThemeMode = 'light' | 'dark';
-
-const ThemeContext = createContext<{
-  theme: Theme;
-  mode: ThemeMode;
-  toggleMode: () => void;
-} | undefined>(undefined);
-
-const themes: Record<ThemeMode, Theme> = {
+const colorPalette = {
   light: {
-    primaryColor: '#3498db',
-    secondaryColor: '#2ecc71',
+    primary: "primary-light",
+    secondary: "secondary-light",
   },
   dark: {
-    primaryColor: '#e74c3c',
-    secondaryColor: '#f39c12',
+    primary: "primary-dark",
+    secondary: "secondary-dark",
   },
 };
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [mode, setMode] = useState<ThemeMode>('light');
-  const [theme, setTheme] = useState<Theme>(themes.light);
+type UseDarkModeReturnType = [boolean, () => void, ThemeColors];
 
-  const toggleMode = () => {
-    const newMode: ThemeMode = mode === 'light' ? 'dark' : 'light';
-    setMode(newMode);
-    setTheme(themes[newMode]);
-  };
+const useDarkMode = (): UseDarkModeReturnType => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [themeColors, setThemeColors] = useState<ThemeColors>(
+    colorPalette.light
+  );
 
-  useEffect(() => {
-    // Check if the user prefers dark mode
-    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Set the initial theme based on user preference
-    setMode(prefersDarkMode ? 'dark' : 'light');
-    setTheme(prefersDarkMode ? themes.dark : themes.light);
+  const getTheme = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from("Theme-Provider")
+        .select("themes")
+        .limit(1)
+        .single();
+      if (data) {
+        const { themes } = data;
+        setIsDarkMode(themes);
+        setThemeColors(themes ? colorPalette.dark : colorPalette.light);
+      }
+    } catch (error) {
+      console.error("Fetch failed", error);
+    }
   }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, mode, toggleMode }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  useEffect(() => {
+    getTheme();
+  }, [getTheme]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+    setThemeColors(isDarkMode ? colorPalette.light : colorPalette.dark);
+    updateTheme(!isDarkMode);
+  };
+
+  const updateTheme = async (value: boolean): Promise<void> => {
+    try {
+      await supabase
+        .from("Theme-Provider")
+        .upsert([{ id: 1, themes: value }])
+        .single();
+      getTheme();
+    } catch (error) {
+      console.error("Toggle failed", error);
+    }
+  };
+
+  return [isDarkMode, toggleDarkMode, themeColors];
 };
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-};
+export default useDarkMode;

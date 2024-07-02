@@ -838,6 +838,9 @@ const config: Config = {
         45: "45deg",
         90: "90deg",
         180: "180deg",
+        270: "270deg",
+        360: "360deg",
+        370: "370deg"
       },
       saturate: {
         0: "0",

@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 const SearchInput = () => {
     const [isFocused, setIsFocused] = useState(false);
 
+    console.log(isFocused, 'zgg')
+
     return (
         <div className={`relative transition-all duration-300 ${isFocused ? 'w-80' : 'w-64'} bg-white bg-opacity-10 backdrop-blur-md border border-white border-opacity-20 rounded-full`}>
             <input

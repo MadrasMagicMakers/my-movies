@@ -8,7 +8,7 @@ function VideoComponent() {
   const [playVideo, setPlayVideo] = useState(false);
 
   return (
-    <div className="relative h-screen">
+    <div className="relative h-screen mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div
         className="absolute inset-0 flex items-center justify-center"
         onClick={() => setPlayVideo((prevState) => !prevState)}
@@ -16,7 +16,7 @@ function VideoComponent() {
         <video
           className="absolute inset-0 w-full h-full object-cover"
           src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
-          autoPlay={playVideo}
+          autoPlay={true}
           loop
           muted
           playsInline
