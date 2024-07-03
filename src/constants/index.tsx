@@ -58,22 +58,70 @@ export const sampleMovies = [
   },
   {
     id: 6,
-    title: "Interstellar",
+    title: "The Matrix",
     image:
-      "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg",
+      "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg",
     description:
-      "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
-    genre: ["Action", "Comedy"],
-    rating: 3.9,
+      "A computer hacker learns about the true nature of reality and his role in the war against its controllers.",
+    genre: ["Action", "Sci-Fi"],
+    rating: 8.7,
   },
   {
     id: 7,
-    title: "The Shawshank Redemption",
+    title: "Forrest Gump",
     image:
-      "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
+      "https://upload.wikimedia.org/wikipedia/en/6/67/Forrest_Gump_poster.jpg",
     description:
-      "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-    genre: ["Action", "Comedy"],
-    rating: 8.0,
+      "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other historical events unfold from the perspective of an Alabama man with an IQ of 75.",
+    genre: ["Drama", "Romance"],
+    rating: 8.8,
+  },
+  {
+    id: 8,
+    title: "The Godfather",
+    image: "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
+    description:
+      "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+    genre: ["Crime", "Drama"],
+    rating: 9.2,
+  },
+  {
+    id: 9,
+    title: "Fight Club",
+    image:
+      "https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg",
+    description:
+      "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.",
+    genre: ["Drama"],
+    rating: 8.8,
+  },
+  {
+    id: 10,
+    title: "Goodfellas",
+    image: "https://upload.wikimedia.org/wikipedia/en/7/7b/Goodfellas.jpg",
+    description:
+      "The story of Henry Hill and his life in the mob, covering his relationship with his wife Karen Hill and his mob partners Jimmy Conway and Tommy DeVito in the Italian-American crime syndicate.",
+    genre: ["Crime", "Drama"],
+    rating: 8.7,
+  },
+  {
+    id: 11,
+    title: "The Silence of the Lambs",
+    image:
+      "https://upload.wikimedia.org/wikipedia/en/8/86/The_Silence_of_the_Lambs_poster.jpg",
+    description:
+      "A young F.B.I. cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer, a madman who skins his victims.",
+    genre: ["Crime", "Drama", "Thriller"],
+    rating: 8.6,
+  },
+  {
+    id: 12,
+    title: "The Lord of the Rings: The Return of the King",
+    image:
+      "https://upload.wikimedia.org/wikipedia/en/4/48/Lord_Rings_Return_King.jpg",
+    description:
+      "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
+    genre: ["Adventure", "Drama", "Fantasy"],
+    rating: 8.9,
   },
 ];

@@ -18,12 +18,12 @@ const MovieList: React.FC<MovieListProps> = ({
 }) => {
   const router = useRouter();
 
-  const safeCurrentPage = Math.max(1, Math.min(currentPage, totalPages));
-
   const selectedMovies: Movie[] = useMemo(() => {
-    const startIndex = (safeCurrentPage - 1) * moviesPerPage;
-    return movies.slice(startIndex, startIndex + moviesPerPage);
-  }, [movies, moviesPerPage, safeCurrentPage]);
+    const startIndex = (currentPage - 1) * moviesPerPage;
+    const endIndex = Math.min(startIndex + moviesPerPage, totalCount);
+    const adjustedStartIndex = Math.max(0, endIndex - moviesPerPage);
+    return movies.slice(adjustedStartIndex, endIndex);
+  }, [movies, moviesPerPage, currentPage, totalCount]);
 
   const handleRedirection = (id: number) => router.push(`/movies/${id}`);
 
@@ -67,7 +67,7 @@ const MovieList: React.FC<MovieListProps> = ({
           <div
             onClick={handlePrevious}
             className={`p-2 rounded-full bg-gray-300 ${
-              safeCurrentPage === 1
+              currentPage === 1
                 ? "opacity-50 cursor-not-allowed"
                 : "cursor-pointer"
             }`}
@@ -79,7 +79,7 @@ const MovieList: React.FC<MovieListProps> = ({
           <div
             onClick={handleNext}
             className={`p-2 rounded-full bg-gray-300 ${
-              safeCurrentPage === totalPages || totalPages === 0
+              currentPage === totalPages || totalPages === 0
                 ? "opacity-50 cursor-not-allowed"
                 : "cursor-pointer"
             }`}
@@ -88,9 +88,6 @@ const MovieList: React.FC<MovieListProps> = ({
           </div>
         </div>
       </div>
-      {/* <p className="text-center mt-4 text-sm text-gray-500">
-        Showing {selectedMovies.length} of {totalCount} movies
-      </p> */}
     </div>
   );
 };
